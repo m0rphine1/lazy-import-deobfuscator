@@ -43,7 +43,7 @@ However, even in an ideal scenario, significant manual analysis is often require
 
 ## Final Note
 
-This PoC is intended as a **starting point for developers and researchers** who want to experiment with deobfuscation techniques for lazy imports. While it demonstrates the concept, it is not a fully reliable or polished tool. Feel free to adapt and improve upon it to suit your specific use case.
+This PoC is intended as a **starting point for developers and researchers** who want to experiment with deobfuscation techniques. While it demonstrates the concept, it is not a fully reliable or polished tool. Feel free to adapt and improve upon it to suit your specific use case.
 
 Happy hacking! 😊
 
