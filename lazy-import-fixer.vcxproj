@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{288bac2b-7916-4187-914e-a0901816e773}</ProjectGuid>
+    <RootNamespace>lazyimportfixer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\asmjit\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\lib;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone\include\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\asmjit\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\lib;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>LIEF.lib;keystone.lib;capstone.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>LIEF.lib;keystone.lib;capstone.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lief\include\LIEF\Abstract.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Binary.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Function.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Relocation.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Section.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\Symbol.hpp" />
+    <ClInclude Include="lief\include\LIEF\Abstract\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\File.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\java_structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\ART\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\associative_iterators.hpp" />
+    <ClInclude Include="lief\include\LIEF\BinaryStream\BinaryStream.hpp" />
+    <ClInclude Include="lief\include\LIEF\BinaryStream\Convert.hpp" />
+    <ClInclude Include="lief\include\LIEF\BinaryStream\VectorStream.hpp" />
+    <ClInclude Include="lief\include\LIEF\config.h" />
+    <ClInclude Include="lief\include\LIEF\DEX.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Class.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\CodeInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\File.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\instructions.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\MapItem.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\MapList.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Method.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Prototype.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\Type.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\DEX\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\DWARF.hpp" />
+    <ClInclude Include="lief\include\LIEF\DWARF\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Binary.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Builder.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DataHandler\Handler.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DataHandler\Node.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntryArray.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntryFlags.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntryLibrary.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntryRpath.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicEntryRunPath.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\DynamicSharedObject.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\enums.h" />
+    <ClInclude Include="lief\include\LIEF\ELF\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\GnuHash.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Note.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\AndroidNote.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\Core.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\core\CoreAuxv.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\core\CoreFile.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\core\CorePrPsInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\core\CorePrStatus.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\core\CoreSigInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\NoteDetails\NoteAbi.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Relocation.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\RelocationSizes.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Section.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Segment.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\structures.h" />
+    <ClInclude Include="lief\include\LIEF\ELF\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\Symbol.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SymbolVersion.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SymbolVersionAux.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SymbolVersionAuxRequirement.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SymbolVersionDefinition.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SymbolVersionRequirement.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\SysvHash.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\ELF\undef.h" />
+    <ClInclude Include="lief\include\LIEF\ELF\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\exception.hpp" />
+    <ClInclude Include="lief\include\LIEF\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\iostream.hpp" />
+    <ClInclude Include="lief\include\LIEF\iterators.hpp" />
+    <ClInclude Include="lief\include\LIEF\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\LIEF.hpp" />
+    <ClInclude Include="lief\include\LIEF\logging.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Binary.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\BinaryParser.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\BindingInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Builder.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\BuildVersion.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\CodeSignature.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DataCodeEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DataInCode.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DyldEnvironment.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DyldInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DylibCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DylinkerCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\DynamicSymbolCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\EncryptionInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\enums.h" />
+    <ClInclude Include="lief\include\LIEF\MachO\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\ExportInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\FatBinary.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\FunctionStarts.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\LoadCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\MainCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\ParserConfig.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Relocation.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\RelocationDyld.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\RelocationObject.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\RPathCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Section.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\SegmentCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\SegmentSplitInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\SourceVersion.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\structures.h" />
+    <ClInclude Include="lief\include\LIEF\MachO\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\SubFramework.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\Symbol.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\SymbolCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\ThreadCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\undef.h" />
+    <ClInclude Include="lief\include\LIEF\MachO\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\UUIDCommand.hpp" />
+    <ClInclude Include="lief\include\LIEF\MachO\VersionMin.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Binary.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Class.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\DexFile.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Method.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\OAT\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\Object.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\AuxiliarySymbol.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Binary.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Builder.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\CodeIntegrity.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\CodeView.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\CodeViewPDB.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\DataDirectory.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Debug.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\DosHeader.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\enums.h" />
+    <ClInclude Include="lief\include\LIEF\PE\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Export.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ExportEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Import.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ImportEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfiguration.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV0.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV1.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV2.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV3.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV4.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV5.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV6.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\LoadConfigurations\LoadConfigurationV7.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\OptionalHeader.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Pogo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\PogoEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Relocation.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\RelocationEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ResourceData.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ResourceDirectory.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ResourceNode.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\ResourcesManager.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\LangCodeItem.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceAccelerator.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceDialog.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceDialogItem.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceFixedFileInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceIcon.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceStringFileInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceStringTable.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceVarFileInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\resources\ResourceVersion.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\RichEntry.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\RichHeader.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Section.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\AuthenticatedAttributes.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\ContentInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\OIDToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\Signature.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\SignatureParser.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\SignerInfo.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\types.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\signature\x509.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\structures.h" />
+    <ClInclude Include="lief\include\LIEF\PE\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\Symbol.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\TLS.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\PE\undef.h" />
+    <ClInclude Include="lief\include\LIEF\PE\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\platforms.hpp" />
+    <ClInclude Include="lief\include\LIEF\platforms\android.hpp" />
+    <ClInclude Include="lief\include\LIEF\platforms\android\version.hpp" />
+    <ClInclude Include="lief\include\LIEF\third-party\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\to_json.hpp" />
+    <ClInclude Include="lief\include\LIEF\types.hpp" />
+    <ClInclude Include="lief\include\LIEF\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\enums.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\EnumToString.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\File.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\hash.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\Header.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\Parser.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\Structures.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\type_traits.hpp" />
+    <ClInclude Include="lief\include\LIEF\VDEX\utils.hpp" />
+    <ClInclude Include="lief\include\LIEF\version.h" />
+    <ClInclude Include="lief\include\LIEF\visibility.h" />
+    <ClInclude Include="lief\include\LIEF\Visitor.hpp" />
+    <ClInclude Include="lief\include\LIEF\visitors\json.hpp" />
+    <ClInclude Include="lief\include\LIEF\visitor_macros.hpp" />
+    <ClInclude Include="utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lief\include\LIEF\ART\enums.inc" />
+    <None Include="lief\include\LIEF\ART\structures.inc" />
+    <None Include="lief\include\LIEF\DEX\enums.inc" />
+    <None Include="lief\include\LIEF\DEX\structures.inc" />
+    <None Include="lief\include\LIEF\ELF\enums.inc" />
+    <None Include="lief\include\LIEF\ELF\Relocations\AArch64.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\ARM.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\Hexagon.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\i386.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\Mips.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\PowerPC.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\PowerPC64.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\Sparc.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\SystemZ.def" />
+    <None Include="lief\include\LIEF\ELF\Relocations\x86_64.def" />
+    <None Include="lief\include\LIEF\ELF\structures.inc" />
+    <None Include="lief\include\LIEF\MachO\enums.inc" />
+    <None Include="lief\include\LIEF\MachO\structures.inc" />
+    <None Include="lief\include\LIEF\OAT\enums.inc" />
+    <None Include="lief\include\LIEF\OAT\structures.inc" />
+    <None Include="lief\include\LIEF\PE\enums.inc" />
+    <None Include="lief\include\LIEF\PE\structures.inc" />
+    <None Include="lief\include\LIEF\VDEX\enums.inc" />
+    <None Include="lief\include\LIEF\VDEX\structures.inc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
