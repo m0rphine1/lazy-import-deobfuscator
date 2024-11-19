@@ -2,7 +2,7 @@
 
 This project is a **Proof of Concept (PoC)**, and I do not plan to develop it further. It was created as a personal challenge to explore the concept of deobfuscating executables and rebuilding. Also it's my first auto deobfuscator ever i wrote.
 
-The project successfully achieved its main goal: deobfuscating an executable obfuscated by lazy importer and recompiling it into a functional, runnable binary. However, due to the variability in how lazy importer is implemented by different compilers, writing a fully automated deobfuscator is nearly impossible.
+The project successfully achieved its main goal: deobfuscating an executable obfuscated by lazy importer and rebuilding it into a functional, runnable binary. However, due to the variability in how lazy importer is implemented by different compilers, writing a fully automated deobfuscator is nearly impossible.
 
 This repository is shared not for direct usage but as a foundation for others to build upon and adapt to their own needs.
 
