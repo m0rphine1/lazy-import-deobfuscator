@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
-#include <asmjit/asmjit.h>
 #include <keystone/keystone.h>
 #include <format>
 #include "utils.hpp"
@@ -25,18 +24,10 @@ int main() {
         return 1;
     }
 
-    // add manual unresolved imports here
-    Import& kernel32_dll = binary->get_import("KERNEL32.dll");
-    kernel32_dll.add_entry("GetModuleHandleA");
-    kernel32_dll.add_entry("K32GetModuleInformation");
-    kernel32_dll.add_entry("LoadLibraryA");
-    kernel32_dll.add_entry("VirtualProtect");
-
-    Import& nt_dll = binary->add_library("NTDLL.dll");
-    nt_dll.add_entry("memcmp");
-
-    Import& ucrtbase_dll = binary->add_library("UCRTBASE.dll");
-    ucrtbase_dll.add_entry("memcpy");
+    // add manual imports here
+    AddFunctions("KERNEL32.dll", binary);
+    AddFunctions("NTDLL.dll", binary);
+    AddFunctions("user32.dll", binary);
 
     // rebuild the binary with updated imports
     LIEF::PE::Builder builder(binary.get());
@@ -79,7 +70,7 @@ int main() {
         }
 
         // generate assembly code to resolve API
-        if (ks_asm(ks, std::format("mov rax, qword ptr ds:{};", obfuscated_import.api + 0x2000).c_str(), address + total_size, &encode, &size, &count) != KS_ERR_OK)
+        if (ks_asm(ks, std::format("mov rax, qword ptr ds:{};", obfuscated_import.api).c_str(), address + total_size, &encode, &size, &count) != KS_ERR_OK)
         {
             std::cerr << "Failed to assemble code: " << ks_strerror(ks_errno(ks)) << std::endl;
             ks_close(ks);
@@ -114,8 +105,8 @@ int main() {
 
     // finalize and write the updated binary
     builder = Builder(binary.get());
-    builder.build_imports(true);
-    builder.patch_imports(true);
+    builder.build_imports(false);
+    builder.patch_imports(false);
     builder.build();
     builder.write(output_file);
 

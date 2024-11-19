@@ -75,8 +75,8 @@
     <LibraryPath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\lib;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone\include\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\asmjit\include;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\lief\lib;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\capstone;C:\Users\Administrator\Documents\Projeler\lazy-import-fixer\keystone;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\capstone\include\capstone;$(ProjectDir)\capstone\include;$(ProjectDir)\keystone\include;$(ProjectDir)\lief\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\lief\lib;$(ProjectDir)\capstone;$(ProjectDir)\keystone;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,6 +132,8 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

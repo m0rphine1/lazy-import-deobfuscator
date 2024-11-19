@@ -5,6 +5,7 @@
 #include <capstone/capstone.h>
 #include <iostream>
 #include <LIEF/LIEF.hpp>
+#include <unordered_set>
 
 using namespace LIEF;
 using namespace LIEF::PE;
@@ -63,6 +64,7 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                     std::cout << "entry: 0x" << std::hex << insn[i].address << " ";
                     int stage = 0;
 
+                    x86_reg calc_reg = X86_REG_INVALID;
                     for (int j = i; j < count; j++)
                     {
                         auto operands = insn[j].detail->x86.operands;
@@ -70,9 +72,10 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                         if (strcmp(insn[j].mnemonic, "mov") == 0)
                         {
                             if (insn[j].detail->x86.op_count && operands[0].type == X86_OP_REG &&
-                                operands[0].reg == X86_REG_EDX && operands[1].type == X86_OP_IMM &&
-                                stage == 0)
+                                (operands[0].reg == X86_REG_EDX || operands[0].reg == X86_REG_R8D)
+                                && operands[1].type == X86_OP_IMM && stage == 0)
                             {
+                                calc_reg = operands[0].reg;
                                 std::cout << "offset: " << std::hex << operands[1].imm << " ";
                                 obfuscated_import.offset = operands[1].imm;
                                 ++stage;
@@ -81,8 +84,8 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                         else if (strcmp(insn[j].mnemonic, "imul") == 0)
                         {
                             if (insn[j].detail->x86.op_count && operands[0].type == X86_OP_REG &&
-                                operands[0].reg == X86_REG_EDX && operands[2].type == X86_OP_IMM &&
-                                stage == 1)
+                                operands[0].reg == calc_reg &&
+                                operands[2].type == X86_OP_IMM && stage == 1)
                             {
                                 std::cout << "prime: " << std::hex << operands[2].imm << " ";
                                 obfuscated_import.prime = operands[2].imm;
@@ -92,7 +95,7 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                         else if (strcmp(insn[j].mnemonic, "cmp") == 0)
                         {
                             if (insn[j].detail->x86.op_count && operands[0].type == X86_OP_REG &&
-                                operands[0].reg == X86_REG_EDX && operands[1].type == X86_OP_IMM &&
+                                operands[0].reg == calc_reg && operands[1].type == X86_OP_IMM &&
                                 stage == 2)
                             {
                                 std::cout << "hash: " << std::hex << operands[1].imm << " ";
@@ -156,6 +159,59 @@ uint32_t hash(const std::string s, uint32_t offset, uint32_t prime)
     return h;
 }
 
+uint64_t ExtractApiAddress(uint64_t iat_ptr, std::unique_ptr<PE::Binary>& binary)
+{
+    uint64_t iat_address = *(uint64_t*)binary->get_content_from_virtual_address(iat_ptr, 8).data();
+    auto test = binary->get_content_from_virtual_address(iat_ptr, 8);
+    test.size();
+
+    csh handle;
+    cs_opt_mem mem_options;
+    mem_options.malloc = malloc;
+    mem_options.calloc = calloc;
+    mem_options.realloc = realloc;
+    mem_options.free = free;
+    mem_options.vsnprintf = vsnprintf;
+
+    if (cs_option(NULL, CS_OPT_MEM, (size_t)&mem_options) != CS_ERR_OK)
+    {
+        return 0;
+    }
+
+    if (cs_open(CS_ARCH_X86, CS_MODE_64, &handle) != CS_ERR_OK) {
+        std::cerr << "Capstone initialization failed!" << std::endl;
+        return 0;
+    }
+
+    cs_option(handle, CS_OPT_DETAIL, CS_OPT_ON);
+
+    cs_insn* insns;
+    size_t count = cs_disasm(handle, binary->get_content_from_virtual_address(iat_address,0xE).data(), 0xE, (uint64_t)iat_address, 0, &insns);
+
+    int base_addr = 0;
+    int offset = 0;
+
+    for (int i = 0; i < count; i++)
+    {
+        cs_insn insn = insns[i];
+        if (strcmp(insn.mnemonic, "call") == 0)
+        {
+            continue;
+        }
+        else if (strcmp(insn.mnemonic, "pop") && base_addr == 0)
+        {
+            base_addr = insn.address;
+        }
+        else if (strcmp(insn.mnemonic, "add") && base_addr != 0)
+        {
+            offset = insn.detail->x86.operands[1].imm;
+            break;
+        }
+    }
+
+    return base_addr + offset;
+}
+
 void ResolveObfuscatedImports(std::vector<obfuscated_import_t>& obfuscated_imports, std::unique_ptr<PE::Binary>& binary)
 {
     for (auto& obfuscated_import : obfuscated_imports)
@@ -178,5 +234,39 @@ void ResolveObfuscatedImports(std::vector<obfuscated_import_t>& obfuscated_impor
 
         if (obfuscated_import.api == NULL)
             std::cout << "unresolved import : " << obfuscated_import.entry << std::endl;
+    }
+}
+
+void AddFunctions(std::string dll_name, std::unique_ptr<PE::Binary>& binary)
+{
+    char* full_path = new char[MAX_PATH];
+    SearchPathA(NULL, dll_name.c_str(), NULL, MAX_PATH, full_path, NULL);
+    std::unique_ptr<PE::Binary> dll_binary = LIEF::PE::Parser::parse(full_path);
+
+    if (binary->has_import(dll_name))
+    {
+        Import& import_dll = binary->get_import(dll_name);
+
+        std::unordered_set<std::string> existing_imports;
+        for (const auto& import_entry : import_dll.entries())
+        {
+            existing_imports.insert(import_entry.name());
+        }
+
+        for (const auto& export_entry : dll_binary->exported_functions())
+        {
+            if (existing_imports.find(export_entry.name()) == existing_imports.end())
+            {
+                import_dll.add_entry(export_entry.name());
+            }
+        }
+    }
+    else
+    {
+        Import& import_dll = binary->add_library(dll_name);
+        for (const auto& export_entry : dll_binary->exported_functions())
+        {
+            import_dll.add_entry(export_entry.name());
+        }
     }
 }
