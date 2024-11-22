@@ -13,7 +13,8 @@ using namespace LIEF::PE;
 
 typedef void(*Func)(void);
 
-int main() {
+int main()
+{
 	std::string input_file = "packed.exe";
 	std::string output_file = "recompiled.exe";
 
@@ -86,10 +87,9 @@ int main() {
 
 		}
 
-		// generate assembly code to resolve API
-		if (ks_asm(ks, std::format("mov rax, qword ptr ds:{};", obfuscated_import.api).c_str(), address + total_size, &encode, &size, &count) != KS_ERR_OK)
+		if (ks_asm(ks, std::format("call qword ptr ds:{}", obfuscated_import.api).c_str(), address + total_size, &encode, &size, &count) != KS_ERR_OK)
 		{
-			std::cerr << "Failed to assemble code: " << ks_strerror(ks_errno(ks)) << std::endl;
+			std::cerr << "Failed to assemble jump instruction: " << ks_strerror(ks_errno(ks)) << std::endl;
 			ks_close(ks);
 			return -1;
 		}

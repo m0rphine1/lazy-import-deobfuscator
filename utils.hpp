@@ -34,12 +34,12 @@ public:
 
     uint64_t param_entry = 0;
     uint64_t param_exit = 0;
-    x86_reg call_reg;
     std::vector<param_t> params;
 
     uint64_t offset = 0;
     uint64_t prime = 0;
     uint64_t hash = 0;
+
     bool requires_manual = false;
 };
 
@@ -147,7 +147,6 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                                         {
                                             obfuscated_import.param_entry = insn[j].address;
                                             obfuscated_import.param_exit = insn[l].address;
-                                            obfuscated_import.call_reg = insn[l].detail->x86.operands[0].reg;
                                             l = j;
                                         }
                                     }
@@ -200,11 +199,8 @@ std::vector<obfuscated_import_t> FindObfuscatedImports(uint8_t* address, uint64_
                             if (insn[j].detail->x86.op_count && operands[0].type == X86_OP_REG &&
                                 stage == 5)
                             {
-                                if (operands[0].reg != X86_REG_RAX)
-                                    obfuscated_import.requires_manual = true;
-
                                 std::cout << "call: 0x" << std::hex << insn[j].address << std::endl;
-                                obfuscated_import.exit = insn[j].address;
+                                obfuscated_import.exit = insn[j+1].address;
 
                                 ++stage;
                                 imports.push_back(obfuscated_import);
@@ -230,9 +226,8 @@ uint32_t hash(const std::string s, uint32_t offset, uint32_t prime)
     uint32_t h = offset;
     for (char c : s)
     {
-        h ^= static_cast<uint32_t>(c); // xor character with hash
-        h *= prime; // multiply by prime
-        h &= 0xFFFFFFFF; // keep only lower 32 bits
+        h ^= static_cast<uint32_t>(c);
+        h *= prime;
     }
     return h;
 }
@@ -299,30 +294,23 @@ void AddFunctions(std::string dll_name, std::unique_ptr<PE::Binary>& binary)
 
 std::string ModifyRipOffset(const std::string& asm_line, int new_offset)
 {
-    // Geliþtirilmiþ regex deseni: "[rip + ..." kýsmýný tüm baðlamýyla eþleþtirir.
     std::regex rip_pattern(R"(\[rip\s*\+\s*0x([0-9A-Fa-f]+)\])");
 
-    // "[rip + ..." kýsmýný arýyoruz
     if (std::regex_search(asm_line, rip_pattern)) {
         std::smatch match;
         std::regex_search(asm_line, match, rip_pattern);
 
-        // Eski offset'i al
         std::string old_offset_str = match[1].str();
 
-        // Offset'i integer olarak çöz
         int old_offset = std::stoi(old_offset_str, nullptr, 16);
 
-        // Yeni offset'i string olarak yaz
         std::stringstream new_offset_stream;
         new_offset_stream << std::hex << new_offset;
         std::string new_offset_str = new_offset_stream.str();
 
-        // Eski offset kýsmýný yeni offset ile deðiþtir
         std::string modified_asm = std::regex_replace(asm_line, rip_pattern, "[rip + 0x" + new_offset_str + "]");
         return modified_asm;
     }
 
-    // Eðer "[rip + ...]" bulunmazsa, orijinal metni döndür
     return asm_line;
 }
