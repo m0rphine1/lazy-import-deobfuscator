@@ -6,6 +6,8 @@ The project successfully achieved its main goal: deobfuscating an executable obf
 
 This repository is shared not for direct usage but as a foundation for others to build upon and adapt to their own needs.
 
+I wrote an article about how it was developed. Check it out: https://medium.com/@mmert_11/writing-a-static-deobfuscator-for-lazy-importer-ca3708cb5bb9 
+
 ---
 
 ## How It Works
